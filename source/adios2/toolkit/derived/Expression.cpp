@@ -38,7 +38,8 @@ const std::map<ExpressionOperator, OperatorProperty> op_property = {
     {ExpressionOperator::OP_ATAN, {"ATAN", false}},
     {ExpressionOperator::OP_MAGN, {"MAGNITUDE", false}},
     {ExpressionOperator::OP_CROSS, {"CROSS", false}},
-    {ExpressionOperator::OP_CURL, {"CURL", false}}};
+    {ExpressionOperator::OP_CURL, {"CURL", false}}},
+    {ExpressionOperator::OP_QCRIT, {"QCRIT", false}};
 
 const std::map<std::string, ExpressionOperator> string_to_op = {
     {"ALIAS", ExpressionOperator::OP_ALIAS}, /* Parser-use only */
@@ -57,7 +58,8 @@ const std::map<std::string, ExpressionOperator> string_to_op = {
     {"acos", ExpressionOperator::OP_ACOS},      {"atan", ExpressionOperator::OP_ATAN},
     {"^", ExpressionOperator::OP_POW},          {"magnitude", ExpressionOperator::OP_MAGN},
     {"MAGNITUDE", ExpressionOperator::OP_MAGN}, {"cross", ExpressionOperator::OP_CROSS},
-    {"curl", ExpressionOperator::OP_CURL},      {"CURL", ExpressionOperator::OP_CURL}};
+    {"curl", ExpressionOperator::OP_CURL},      {"CURL", ExpressionOperator::OP_CURL}},
+    {"qcrit", ExpressionOperator::OP_QCRIT};
 
 inline std::string get_op_name(ExpressionOperator op) { return op_property.at(op).name; }
 
@@ -155,7 +157,9 @@ std::map<adios2::detail::ExpressionOperator, OperatorFunctions> OpFunctions = {
     {adios2::detail::ExpressionOperator::OP_MAGN,
      {MagnitudeFunc, SameDimsWithAgrFunc, SameTypeFunc}},
     {adios2::detail::ExpressionOperator::OP_CROSS, {Cross3DFunc, Cross3DDimsFunc, SameTypeFunc}},
-    {adios2::detail::ExpressionOperator::OP_CURL, {Curl3DFunc, CurlDimsFunc, SameTypeFunc}}};
+    {adios2::detail::ExpressionOperator::OP_CURL, {Curl3DFunc, CurlDimsFunc, SameTypeFunc}},
+    {adios2::detail::ExpressionOperator::OP_QCRIT, {QCrit3DFunc, SameDimsFunc, SameTypeFunc}}  //TODO: This might be one dimension less since vector of 3 to single
+};
 
 Expression::Expression(std::string string_exp)
 : m_Shape({0}), m_Start({0}), m_Count({0}), ExprString(string_exp)

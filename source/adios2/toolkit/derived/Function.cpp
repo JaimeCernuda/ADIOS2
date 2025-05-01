@@ -657,6 +657,27 @@ DerivedData Curl3DFunc(const std::vector<DerivedData> inputData, DataType type)
     return DerivedData();
 }
 
+//TODO: implement this
+DerivedData QCrit3DFunc(std::vector<DerivedData> input, DataType type){
+    PERFSTUBS_SCOPED_TIMER("derived::Function::QCritFunc");
+    size_t dims[3] = {inputData[0].Count[0], inputData[0].Count[1], inputData[0].Count[2]};
+
+    DerivedData curl;
+    curl.Data = NULL;
+#define declare_type_curl(T)                                                                       \
+    if (type == helper::GetDataType<T>())                                                          \
+    {                                                                                              \
+        T *input1 = (T *)inputData[0].Data;                                                        \
+        T *input2 = (T *)inputData[1].Data;                                                        \
+        T *input3 = (T *)inputData[2].Data;                                                        \
+        curl.Data = detail::ApplyCurl(input1, input2, input3, dims);                               \
+        return curl;                                                                               \
+    }
+    ADIOS2_FOREACH_ATTRIBUTE_PRIMITIVE_STDTYPE_1ARG(declare_type_curl)
+    helper::Throw<std::invalid_argument>("Derived", "Function", "Curl3DFunc",
+                                         "Invalid variable types");
+    return DerivedData();
+}
 /* Functions that return output dimensions
  * Input: A list of variable dimensions (start, count, shape)
  * Output: (start, count, shape) of the output operation */

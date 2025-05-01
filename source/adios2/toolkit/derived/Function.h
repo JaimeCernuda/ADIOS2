@@ -16,12 +16,13 @@ DerivedData AsinFunc(std::vector<DerivedData> input, DataType type);
 DerivedData AcosFunc(std::vector<DerivedData> input, DataType type);
 DerivedData AtanFunc(std::vector<DerivedData> input, DataType type);
 DerivedData MultFunc(std::vector<DerivedData> input, DataType type);
-DerivedData DivFunc(std::vector<DerivedData> input, DataType type);
+DerivedData DivFunc(std::vector<DerivedData> input, DataType t ype);
 DerivedData SqrtFunc(std::vector<DerivedData> input, DataType type);
 DerivedData PowFunc(std::vector<DerivedData> input, DataType type);
 DerivedData MagnitudeFunc(std::vector<DerivedData> input, DataType type);
 DerivedData Cross3DFunc(std::vector<DerivedData> input, DataType type);
 DerivedData Curl3DFunc(std::vector<DerivedData> input, DataType type);
+DerivedData QCrit3DFunc(std::vector<DerivedData> input, DataType type);
 
 std::tuple<Dims, Dims, Dims> SameDimsFunc(std::vector<std::tuple<Dims, Dims, Dims>> input);
 std::tuple<Dims, Dims, Dims> SameDimsWithAgrFunc(std::vector<std::tuple<Dims, Dims, Dims>> input);
